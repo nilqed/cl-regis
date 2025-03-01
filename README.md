@@ -9,7 +9,7 @@ Citing from the VT330/VT340 Graphics Programming Manual[^1]:
 
 ReGIS is a graphics instruction set from Digital[^2]. ReGIS provides a set of commands you can use to draw images on the screen.
 
-Of course, those terminals are hardly in use today, however, there still are some terminal emulations that support ReGIS graphics. Besides some commercial ones, we are only aware of good old  **XTerm**, however, it must be compiled with `--enable-regis` contrary to **Sixel**[^3] support which is enabled by default. This is, however, no big deal (see below).
+Of course, those terminals are hardly in use today, however, there still are some terminal emulations that support ReGIS graphics. Besides some commercial ones, we are only aware of good old  **XTerm**, however, it must be compiled with `--enable-regis-graphics` contrary to **Sixel**[^3] support which is enabled by default. This is, however, no big deal (see below).
 
 ## More info about ReGIS
 * https://en.wikipedia.org/wiki/ReGIS
@@ -18,7 +18,7 @@ Of course, those terminals are hardly in use today, however, there still are som
 * https://en.wikipedia.org/wiki/VT320
 
 ## Compiling xterm with ReGIS support
-See also https://github.com/feilipu/ReGIS:
+Borrowed from https://github.com/feilipu/ReGIS:
 
 
     $ sudo apt install -y libxaw7-dev libncurses-dev libxft-dev
@@ -34,7 +34,7 @@ Although *ReGIS, short for Remote Graphic Instruction Set*, we will not use an U
 rather print directly to the screen with `(format ...)`. 
 
 ## Testing
-We will use the following two examples:
+We will try the following two examples:
 
 The string from https://github.com/feilipu/ReGIS:
 
@@ -69,6 +69,11 @@ Running `(ex2)`:
 ![ex2](docs/regis-ex2.png)
 
 
+## Goals
+Mapping the instruction set in a KISS manner to CL and likely to interface with some great libraries like 
+VECTO[^4], CL-VECTORS[^5] and so on. 
+
+
 :date:
 
 
@@ -77,5 +82,9 @@ Running `(ex2)`:
 [^1]: http://bitsavers.trailing-edge.com/pdf/dec/terminal/vt340/EK-VT3XX-GP-001_VT330_VT340_Graphics_Programming_Mar87.pdf
 [^2]: https://en.wikipedia.org/wiki/Digital_Equipment_Corporation
 [^3]: https://github.com/nilqed/cl-sixel
+[^4]: https://www.xach.com/lisp/vecto/ 
+[^5]: https://projects.tuxee.net/cl-vectors/ 
+
+
 
 
