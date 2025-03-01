@@ -9,7 +9,7 @@ Citing from the VT330/VT340 Graphics Programming Manual[^1]:
 
 ReGIS is a graphics instruction set from Digital[^2]. ReGIS provides a set of commands you can use to draw images on the screen.
 
-Of course, those terminals are hardly in use today, however, there still are some terminal emulations that support ReGIS graphics. Besides some commercial ones, we are only aware of good old  **XTerm**, however, it must be compiled with `--enable-regis` contrary to **Sixel** support which is enabled by default. This is, however, no big deal (see below).
+Of course, those terminals are hardly in use today, however, there still are some terminal emulations that support ReGIS graphics. Besides some commercial ones, we are only aware of good old  **XTerm**, however, it must be compiled with `--enable-regis` contrary to **Sixel**[^3] support which is enabled by default. This is, however, no big deal (see below).
 
 ## More info about ReGIS
 * https://en.wikipedia.org/wiki/ReGIS
@@ -20,7 +20,7 @@ Of course, those terminals are hardly in use today, however, there still are som
 ## Compiling xterm with ReGIS support
 See also https://github.com/feilipu/ReGIS:
 
-``
+
     $ sudo apt install -y libxaw7-dev libncurses-dev libxft-dev
     $ wget https://invisible-island.net/datafiles/release/xterm.tar.gz
     $ tar xf xterm.tar.gz
@@ -28,7 +28,7 @@ See also https://github.com/feilipu/ReGIS:
     $ ./configure --enable-regis-graphics
     $ make
     $ sudo make install
-``
+    
 
 Although *ReGIS, short for Remote Graphic Instruction Set*, we will not use an USART but
 rather print directly to the screen with `(format ...)`. 
@@ -49,7 +49,7 @@ and the sample from Wikipedia https://en.wikipedia.org/wiki/ReGIS:
     (defvar regis-ex2 
     "S(E)(C1)P[100,440]V(B),[+100,+0],[+0,-10],[-100,+0],(E)P[500,300],F(C[+100])")
     
-Note that the `begin` and `end` control sequence were removed. Those hase to be added, as can be seen from the following code:
+Note that the `begin` and `end` control sequences were removed. Those have to be added, as can be seen from the following code that is used for the examples:
 
     (defun rbeg () (format t "~C~C~C~C" #\Esc #\P #\1 #\p))
     (defun rend () (format t "~C~C" #\Esc #\\))
@@ -76,5 +76,6 @@ Running `(ex2)`:
 
 [^1]: http://bitsavers.trailing-edge.com/pdf/dec/terminal/vt340/EK-VT3XX-GP-001_VT330_VT340_Graphics_Programming_Mar87.pdf
 [^2]: https://en.wikipedia.org/wiki/Digital_Equipment_Corporation
+[^3]: https://github.com/nilqed/cl-sixel
 
 
