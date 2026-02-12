@@ -3,7 +3,7 @@ ReGIS in Common Lisp
 
 :warning: work in progress :construction:
 
-This is for now a prototype only inspired by https://github.com/feilipu/ReGIS.
+This is for now a prototype only, inspired by https://github.com/feilipu/ReGIS.
 
 Citing from the VT330/VT340 Graphics Programming Manual[^1]:
 
@@ -24,14 +24,13 @@ Borrowed from https://github.com/feilipu/ReGIS:
     $ sudo apt install -y libxaw7-dev libncurses-dev libxft-dev
     $ wget https://invisible-island.net/datafiles/release/xterm.tar.gz
     $ tar xf xterm.tar.gz
-    $ cd xterm-392
+    $ cd xterm-XXX
     $ ./configure --enable-regis-graphics
     $ make
     $ sudo make install
     
 
-Although *ReGIS, short for Remote Graphic Instruction Set*, we will not use an USART but
-rather print directly to the screen with `(format ...)`. 
+Also see https://github.com/nilqed/xterm-regis
 
 ## Testing
 We will try the following two examples:
@@ -69,8 +68,99 @@ Running `(ex2)`:
 ![ex2](docs/regis-ex2.png)
 
 
-## Goals
-Mapping the instruction set in a KISS manner to CL and likely to interface with some great libraries like 
+## cl-regis.lisp
+
+You will find the file `cl-regis.lisp` in the `src` directory. It is just
+a POC for the moment.
+
+    begin .............. enter ReGIS  
+    end ................ end ReGIS
+
+    setpos (x y) ....... set position (pixels). Origin is left upper corner.
+    circle (r) ......... draw a circle with radius r at current position.
+    circlef (r) ........ draw a filled circle.
+    clear () ........... clear the ReGIS buffer.
+
+    pixela (x y) ....... draw a pixel at (x,y).
+    pixelr () .......... draw a pixel relative to current position.
+    mover (dx dy) ...... move relative (dx,dy) to current position.
+    text (txt size) .... draw text 'txt' with size 'size'.
+
+    arc (deg r) ........ draw an arc with radius r and opening angle deg.
+    box (w h) .......... draw a box w wide an h height.
+    boxf (w h) ......... draw a filled box.
+    regis (cmd) ........ enter any ReGIS command 'cmd'
+
+    color (c) .......... set coolor c
+    lineato (x y) ...... draw a line to absolute position (x,y).
+    linerto (dx dy) .... draw a line to relative position (dx,dy).
+    wstyle (s) ......... set the write sryle.
+    mroffd(d offset) ... move relative offset.
+    setposr (dx dy) .... set position relative.
+    pat (p) ............ set pattern p.
+    
+    
+For details consult the VT* manual.
+
+
+### tests
+
+#### test1
+Set position 500,250 and draw two circles (one filled).
+
+
+    (defun test1 ()
+       (progn (begin) (clear) (setpos 500 250) (circle 100) (circlef 70) (end)))
+
+
+![test1](docs/test1.png)
+
+
+#### test2
+Set position 500,250 and draw a text.
+
+    (defun test2 ()
+       (progn (begin) (clear) (setpos 500 250) (text "cl-regis :)" 2) (end)))
+  
+![test2](docs/test2.png)  
+
+
+#### test3
+Set position 500,250 and draw an arc and a box.
+
+    (defun test3 ()
+       (progn (begin) (clear) (setpos 500 250) (arc 45 100) (box 30 40) (end)))
+  
+
+![test3](docs/test3.png)
+
+
+#### test4
+Set position 500,250 and draw a yellow box.
+
+    (defun test4 ()
+       (progn (begin) (clear) (setpos 500 250) (color "Y") (boxf 30 40) (end)))
+
+
+![test4](docs/test4.png)
+
+
+#### test5
+Set position 500,250 and draw two lines. One absolute to 400,300 and one
+relative (-40,50).
+
+
+    (defun test5 ()
+       (progn (begin) (clear) (setpos 500 250) (lineato 400 300) (linerto -40 50) (end)))
+
+
+![test5](docs/test5.png)
+
+
+
+:todo:
+
+Interface with some great libraries like 
 VECTO[^4], CL-VECTORS[^5] and so on. 
 
 
